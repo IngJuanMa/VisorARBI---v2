@@ -153,7 +153,10 @@ datalist option {
   transform: translateY(0);
 }
 
-
+.leaflet-control-attribution {
+  font-size: 0.6em !important; /* o el tamaño que prefieras */
+  padding: 2px 4px !important;
+}
 
 
 
