@@ -166,6 +166,8 @@ map.on('moveend zoomend', () => {
       continue;
     }
 
+     if (isChecked && checkbox.dataset.manual === 'true') continue;
+
     // Si entra en rango de zoom y no está activa, la creo
     if (isVisible && !capasVisibles[nombre]) {
       capasVisibles[nombre] = L.geoJSON(geojson, {
