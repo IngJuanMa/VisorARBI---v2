@@ -49,6 +49,13 @@ const baseMaps = {
 // Capa base inicial
 let capaBaseActual = vial;
 
+function debounce(func, delay) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
 // Función: Cambiar la capa base del mapa
 function cambiarMapaBase(tipoMapa) {
   // Validación y cambio de capa
@@ -63,7 +70,7 @@ function cambiarMapaBase(tipoMapa) {
   capaBaseActual = nuevaCapa;
   map.addLayer(capaBaseActual);
   actualizarEstadoVisualCapas(tipoMapa);
-  console.log(`Capa base cambiada a: ${tipoMapa}`);
+  //console.log(`Capa base cambiada a: ${tipoMapa}`);
 }
 
 // Función: Actualizar los estilos visuales de los botones de capa
@@ -111,7 +118,7 @@ for (const nombre in configuracionCapas) {
     .then(res => res.json())
     .then(data => {
       geojsonOriginal[nombre] = data;
-      console.log(`Capa ${nombre} descargada`);
+      //console.log(`Capa ${nombre} descargada`);
     });
 }
 
@@ -168,16 +175,25 @@ map.on('moveend zoomend', () => {
 
      if (isChecked && checkbox.dataset.manual === 'true') continue;
 
-    // Si entra en rango de zoom y no está activa, la creo
-    if (isVisible && !capasVisibles[nombre]) {
-      capasVisibles[nombre] = L.geoJSON(geojson, {
-        pane: 'canvas-pane',
-        renderer: L.canvas(),
-        style: () => config.estilo,
-        onEachFeature: (f, l) => l.bindPopup(generarPopup(f, nombre))
-      }).addTo(map);
-      if (checkbox) checkbox.checked = true;
-    }
+if (isVisible && !capasVisibles[nombre]) {
+  if (nombre === 'Terreno') mostrarLoaderTerreno();
+
+  capasVisibles[nombre] = L.geoJSON(geojson, {
+    pane: 'canvas-pane',
+    renderer: L.canvas(),
+    style: () => config.estilo,
+    onEachFeature: (f, l) => l.bindPopup(generarPopup(f, nombre))
+  }).addTo(map);
+
+  // Ocultar el loader cuando la capa se agregó
+  if (nombre === 'Terreno') {
+    setTimeout(() => ocultarLoaderTerreno(), 500);
+  }
+
+  if (checkbox) checkbox.checked = true;
+}
+
+
 
     // Si sale del rango de zoom y estaba activa, la quito
     if (!isVisible && capasVisibles[nombre]) {
@@ -427,7 +443,7 @@ function filtrarCapa() {
   }).addTo(map);
 
   if (filtradas.length > 0) map.fitBounds(capaFiltrada.getBounds());
-  console.log(`Filtrados: ${filtradas.length}`);
+  //console.log(`Filtrados: ${filtradas.length}`);
 }
 
 function limpiarFiltro() {
@@ -564,7 +580,7 @@ function filtrarCapaMovil() {
     }
   }).addTo(map);
   if (filtradas.length > 0) map.fitBounds(window.capaFiltradaMovil.getBounds());
-  console.log(`Filtrados móvil: ${filtradas.length}`);
+  //console.log(`Filtrados móvil: ${filtradas.length}`);
 }
 function limpiarFiltroMovil() {
   document.getElementById('filtro-valor-movil').value = '';
