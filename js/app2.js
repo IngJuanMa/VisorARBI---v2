@@ -108,7 +108,7 @@ const configuracionCapas = {
   "Barrios": { archivo: "barrios.geojson", estilo: { color: 'green', weight: 0.6, fillOpacity: 0.2 }, minZoom: 16, maxZoom: 17 },
   "Comunas": { archivo: "comunas.geojson", estilo: { color: 'blue', weight: 0.6, fillOpacity: 0.2 }, minZoom: 0, maxZoom: 15 },
   "Terreno": { archivo: "TerrenoFinal.geojson", estilo: { color: 'orange', weight: 0.6, fillOpacity: 0.2 }, minZoom: 18, maxZoom: 22 },
-  "Construccion": { archivo: "ConstruccionFinal.geojson", estilo: { color: 'yellow', fillColor: '#002f559d', weight: 0.6, fillOpacity: 0.4 }, minZoom: 19, maxZoom: 22 }
+  "Construccion": { archivo: "ConstruccionFinal.geojson", estilo: { color: 'grey', fillColor: '#002f559d', weight: 0.6, fillOpacity: 0.4 }, minZoom: 19, maxZoom: 22 }
 };
 
 // Traer los GeoJson desde la carpeta data (Por como funciona la otra pagina se debera cambiar para que no se enceuntren dentro de una carpeta o corregir la ruta la encontrarse en la nube)
@@ -314,6 +314,7 @@ const camposPorCapa = {
   "Unidades": ["npn", "identificador"],
   "Barrios": ["PK_BARRIO"],
   "Comunas": ["COMUNA", "NOMBRE_UPZ"]
+  ,"Construccion": ["id", "name"]
 };
 
 const aliasCampos = {
@@ -349,6 +350,7 @@ function generarPopup(feature, nombreCapa) {
     "Unidades": ["id", "Numero Predial","Area Construida", "Planta de ubicación","altura","Superficie"],
     "Barrios": [ "MUNICIPIO", "PK_BARRIO","NOM_BARRIO","CORREGIMIENTO"],
     "Comunas": ["COMUNA", "NOMBRE_UPZ", "NOMBRE_COM","AREA__HAS_"]
+    ,"Construccion": ["id", "name", "shape_area"]
   };
   
   if (camposEspecificos[nombreCapa]) {
