@@ -350,7 +350,7 @@ function generarPopup(feature, nombreCapa) {
     "Unidades": ["id", "Numero Predial","Area Construida", "Planta de ubicación","altura","Superficie"],
     "Barrios": [ "MUNICIPIO", "PK_BARRIO","NOM_BARRIO","CORREGIMIENTO"],
     "Comunas": ["COMUNA", "NOMBRE_UPZ", "NOMBRE_COM","AREA__HAS_"]
-    ,"Construccion": ["id", "name", "shape_area"]
+    //,"Construccion": ["id", "name", "shape_area"]
   };
   
   if (camposEspecificos[nombreCapa]) {

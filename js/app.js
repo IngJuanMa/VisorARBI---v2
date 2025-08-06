@@ -16,7 +16,7 @@ const visores = {
 
   san_juan: {
     nombre: "Visor San Juan",
-    center: [3.01, -75.50],
+    center: [8.7541, -76.5279],
     zoom: 13,
     capas: {
       Terreno: { archivo: "data/san_juan/CR_UnidadConstruccion.geojson", estilo: { color: 'orange', weight: 0.6, fillOpacity: 0.2 }, minZoom: 18, maxZoom: 22 },
@@ -25,6 +25,7 @@ const visores = {
     }
   }
 };
+
 
 // ==========================
 // SELECCIÓN DE VISOR POR URL
